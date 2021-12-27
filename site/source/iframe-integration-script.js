@@ -16,7 +16,7 @@ let script =
 	fr = lang === 'fr',
 	baseUrl =
 		script.dataset.iframeUrl ||
-		(fr ? process.env.FR_BASE_URL : process.env.EN_BASE_URL) +
+		(fr ? import.meta.env.VITE_FR_BASE_URL : import.meta.env.VITE_EN_BASE_URL) +
 			'/iframes/' +
 			moduleName,
 	integratorUrl = encodeURIComponent(window.location.href.toString()),
@@ -54,7 +54,7 @@ const moduleToSitePath = {
 	'simulateur-dirigeantsasu': '/simulateurs/dirigeant-sasu',
 }
 const simulateurLink =
-	process.env.FR_BASE_URL + moduleToSitePath[moduleName] ?? ''
+	import.meta.env.VITE_FR_BASE_URL + moduleToSitePath[moduleName] ?? ''
 
 const url = new URL(simulateurLink, window.location.origin)
 const params = new URLSearchParams(url.search)
@@ -78,7 +78,11 @@ links.innerHTML = `
 	<a href="${monEntrepriseUrl}">
 			<img
 				style="height: 40px; margin: 10px"
-				src="${process.env.FR_BASE_URL + '/' + (lang === 'fr' ? logoFrSvg : logoEnSvg)}"
+				src="${
+					import.meta.env.VITE_FR_BASE_URL +
+					'/' +
+					(lang === 'fr' ? logoFrSvg : logoEnSvg)
+				}"
 				alt="mon-entreprise.urssaf.fr : l'assistant officiel du créateur d'entreprise"
 			/>
 		</a>
