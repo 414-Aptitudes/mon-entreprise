@@ -31,9 +31,26 @@
 			name="google-site-verification"
 			content="lO4OheVzHWfvwcoUC-1VKN_GTWtA5vEM-uPZqb2PORs"
 		/>
-		<meta property="og:type" content="website" />
 
 		<!-- data-helmet pour que React Helmet puisse écraser ce meta par défaut -->
+		<meta
+			name="description"
+			content="{{ description }}"
+			data-react-helmet="true"
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" data-react-helmet="true" content="{{ title }}" />
+		<meta
+			property="og:description"
+			data-react-helmet="true"
+			content="{{ description }}"
+		/>
+
+		<meta
+			property="og:image"
+			data-react-helmet="true"
+			content="{{ shareImage }}"
+		/>
 
 		<link rel="manifest" href="/manifest.webmanifest" />
 
@@ -155,6 +172,32 @@
 	<body>
 		<!-- APP  -->
 		<div id="js"></div>
-		<script type="module" src="/source/entry.fr.tsx"></script>
+		<script type="module" src="{{ entry }}"></script>
+
+		<script>
+			// Set the main colors from the provided customization in the URL We do it
+			// before loading the whole JS bundle to avoid a UI flash. cf. #1786
+			try {
+				let rawColor = new URLSearchParams(
+					document.location.search.substring(1)
+				).get('couleur')
+				let iframeColor = rawColor && JSON.parse(decodeURIComponent(rawColor))
+
+				if (iframeColor) {
+					;[
+						document.documentElement,
+						...document.querySelectorAll('.js-color-element'),
+					].forEach((element) => {
+						element.style.setProperty('--COLOR_HUE', iframeColor[0])
+						element.style.setProperty(
+							'--COLOR_SATURATION',
+							iframeColor[1] + '%'
+						)
+					})
+				}
+			} catch (e) {
+				console.error(e)
+			}
+		</script>
 	</body>
 </html>
