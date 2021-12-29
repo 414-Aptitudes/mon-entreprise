@@ -108,11 +108,9 @@ export default function Nouveautés() {
 					</Grid>
 					<Grid item xs={12} lg={9}>
 						<MainBlock>
-							<MarkdownWithAnchorLinks
-								source={data[selectedRelease].description}
-								escapeHtml={false}
-								renderers={{ text: TextRenderer }}
-							/>
+							<MarkdownWithAnchorLinks renderers={{ text: TextRenderer }}>
+								{data[selectedRelease].description}
+							</MarkdownWithAnchorLinks>
 
 							<NavigationButtons>
 								{selectedRelease + 1 < data.length ? (

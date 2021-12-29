@@ -128,7 +128,7 @@ function ActivitéMixte() {
 				Activité mixte
 			</Checkbox>
 			<ButtonHelp type="aide" title={rule.title} light>
-				<Markdown source={rule.rawNode.description} />
+				<Markdown>{rule.rawNode.description ?? ''}</Markdown>
 			</ButtonHelp>
 		</StyledActivitéMixteContainer>
 	)
