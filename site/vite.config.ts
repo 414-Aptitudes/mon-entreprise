@@ -21,7 +21,7 @@ export default defineConfig({
 		},
 		extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
 	},
-	root: 'source',
+	publicDir: 'source/public',
 	plugins: [
 		react({
 			babel: {
@@ -35,7 +35,8 @@ export default defineConfig({
 			templatePath: './source/template.html',
 			sites: {
 				'mon-entreprise': {
-					entry: '/entry.fr.tsx',
+					lang: 'fr',
+					entry: '/source/entry.fr.tsx',
 					title:
 						"mon-entreprise.urssaf.fr : L'assistant officiel du créateur d'entreprise",
 					description:
@@ -43,7 +44,8 @@ export default defineConfig({
 					shareImage: 'https://mon-entreprise.urssaf.fr/images/logo-share.png',
 				},
 				infrance: {
-					entry: '/entry.en.tsx',
+					lang: 'en',
+					entry: '/source/entry.en.tsx',
 					title:
 						'My company in France: A step-by-step guide to start a business in France',
 					description:
@@ -143,12 +145,7 @@ function multipleSPA(options: MultipleSPAOptions): Plugin {
 			if (
 				Object.keys(options.sites).some((name) => id.endsWith(name + '.html'))
 			) {
-				return await fillTemplate(
-					id
-						.split('/')
-						.at(-1)
-						.replace(/\.html$/, '')
-				)
+				return await fillTemplate(id.replace(/\.html$/, ''))
 			}
 		},
 	}

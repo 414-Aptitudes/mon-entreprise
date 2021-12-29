@@ -16,6 +16,10 @@ export function useUrl() {
 	const situation = useSelector(situationSelector)
 	const searchParams = useParamsFromSituation(situation)
 	searchParams.set('utm_source', 'sharing')
+	if (typeof window === 'undefined') {
+		return ''
+	}
+
 	return [
 		window.location.origin,
 		window.location.pathname.replace('iframes/', ''),

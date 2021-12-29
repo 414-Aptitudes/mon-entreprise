@@ -34,7 +34,7 @@ export default function Header() {
 				{language === 'fr' && <SearchButton />}
 			</StyledHeader>
 
-			<NewsBanner />
+			{!import.meta.env.SSR && <NewsBanner />}
 		</Container>
 	)
 }
